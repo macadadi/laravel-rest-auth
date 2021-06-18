@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
@@ -19,4 +20,14 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
+
+    protected function sendResetLinkResponse(Request $request,$response){
+     $response = ['message'=>'Password reset ink send succesfully'];
+     return response($response,200);
+    }
+    protected function sendResetLinkFailedResponse(Request $requesst,$response){
+        $response = ['message'=>'Failed to send email'];
+        return response($response,404);
+
+    }
 }
